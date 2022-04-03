@@ -1,4 +1,4 @@
-package com.jess.compose.books
+package com.jess.compose.books.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.jess.compose.books.ui.theme.BooksTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

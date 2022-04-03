@@ -55,8 +55,13 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+
     implementation 'androidx.activity:activity-compose:1.4.0'
+
+    def lifeCycle = '2.4.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifeCycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycle"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
