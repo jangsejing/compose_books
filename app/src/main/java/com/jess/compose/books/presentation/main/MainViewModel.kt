@@ -10,8 +10,11 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val _list = MutableLiveData<Boolean>()
-    val list: LiveData<Boolean> get() = _list
+    private val _list = MutableLiveData<List<BookItem>>()
+    val list: LiveData<List<BookItem>> get() = _list
+
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> get() = _text
 
     fun request(text: String?) {
         if (text.isNullOrEmpty()) {
@@ -19,7 +22,8 @@ class MainViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            delay(500L)
+            _text.value = text.orEmpty()
+
             val amount = (10..100).random()
 
             val list = arrayListOf<BookItem>().apply {
@@ -34,6 +38,7 @@ class MainViewModel : ViewModel() {
                     )
                 }
             }
+            _list.postValue(list)
         }
     }
 }
