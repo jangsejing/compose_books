@@ -41,4 +41,8 @@ class MainViewModel : ViewModel() {
             _list.postValue(list)
         }
     }
+
+    fun onItemClick(item: BookItem) {
+
+    }
 }
