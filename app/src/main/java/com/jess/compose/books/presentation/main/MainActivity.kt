@@ -1,11 +1,14 @@
 package com.jess.compose.books.presentation.main
 
 import android.os.Bundle
+import android.util.Size
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -16,10 +19,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size.Companion.ORIGINAL
+import com.jess.compose.books.R
 import com.jess.compose.books.data.entity.BookItem
 import com.jess.compose.books.ui.theme.BooksTheme
 
@@ -130,10 +142,23 @@ fun BookListItem(
             mainViewModel.onItemClick(item)
         })
     {
-        Column(
-            modifier = Modifier.padding(Dp(8f))
-        ) {
-            Text(item.title.orEmpty())
+        val painter = rememberAsyncImagePainter(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(item.thumbnail)
+                .build()
+        )
+        Column {
+            Row {
+                Image(
+                    painter = painter,
+                    contentDescription = stringResource(R.string.app_name),
+                    modifier = Modifier
+                        .width(Dp(100f))
+                        .height(Dp(100f))
+                )
+                Text(item.title.orEmpty())
+            }
+            Text(item.contents.orEmpty())
         }
     }
 }
@@ -145,6 +170,14 @@ fun DefaultPreview() {
     BooksTheme {
         Column {
             MainCompose()
+            BookListItem(
+                BookItem(
+                    "제목",
+                    "컨텐츠",
+                    "3",
+                    "4"
+                )
+            )
         }
     }
 }
